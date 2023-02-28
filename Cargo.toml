@@ -1,0 +1,9 @@
+[workspace]
+
+members = [
+    'contracts/*'
+]
+
+
+[profile.dev]
+codegen-units = 16
