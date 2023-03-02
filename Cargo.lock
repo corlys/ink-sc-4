@@ -614,6 +614,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "my_psp22"
+version = "1.0.0"
+dependencies = [
+ "ink",
+ "openbrush",
+ "parity-scale-codec",
+ "scale-info",
+]
+
+[[package]]
+name = "my_psp34"
+version = "1.0.0"
+dependencies = [
+ "ink",
+ "openbrush",
+ "parity-scale-codec",
+ "scale-info",
+]
+
+[[package]]
 name = "num-traits"
 version = "0.2.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
