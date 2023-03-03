@@ -1,7 +1,10 @@
 //ink imports
+use ink::prelude::string::String;
 use ink::primitives::AccountId;
 use ink::storage::Mapping;
 //openbrush imports
+use openbrush::contracts::traits::ownable::OwnableError;
+use openbrush::contracts::traits::psp34::PSP34Error;
 use openbrush::traits::{Balance, ZERO_ADDRESS};
 
 #[derive(scale::Encode, scale::Decode)]
@@ -46,5 +49,42 @@ impl Default for Data {
         Data {
             inventories: Mapping::default(),
         }
+    }
+}
+
+pub enum Kinds {
+    KindSell,
+    KindBuy,
+}
+
+pub enum Status {
+    Open,
+    Cancelled,
+    Done,
+}
+
+pub enum Opcodes {
+    OpCompleteSellOnChain,
+    OpCompleteBuyOnChain,
+}
+
+//POSSIBLE ERROR HERE, I DELETE Debug, PartialEq, Eq from derive
+#[derive(scale::Encode, scale::Decode)]
+#[cfg_attr(feature = "std", derive(scale_info::TypeInfo))]
+pub enum MarketplaceError {
+    Custom(String),
+    PSP34Error(PSP34Error),
+    OwnableError(OwnableError),
+}
+
+impl From<PSP34Error> for MarketplaceError {
+    fn from(value: PSP34Error) -> Self {
+        MarketplaceError::PSP34Error(value)
+    }
+}
+
+impl From<OwnableError> for MarketplaceError {
+    fn from(value: OwnableError) -> Self {
+        MarketplaceError::OwnableError(value)
     }
 }
