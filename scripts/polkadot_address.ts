@@ -1,6 +1,7 @@
 import { decodeAddress, encodeAddress } from '@polkadot/util-crypto'
 import { u8aToHex } from '@polkadot/util'
 
+
 const main = async () => {
   const pubkeyAddress = decode(
     '5Cex4FeQH6ydKsfwBAvZpCiPtoNxAd7EfUdwY4CPU9un5Gk9'

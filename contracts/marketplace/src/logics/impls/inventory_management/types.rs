@@ -36,6 +36,29 @@ impl Default for Inventory {
     }
 }
 
+#[derive(scale::Encode, scale::Decode)]
+#[cfg_attr(
+    feature = "std",
+    derive(scale_info::TypeInfo, ink::storage::traits::StorageLayout)
+)]
+pub struct Detail {
+    inventory_id: u128,
+    opcode: u8,
+    caller: AccountId,
+    price: Balance,
+}
+
+impl Default for Detail {
+    fn default() -> Self {
+        Detail {
+            inventory_id: Default::default(),
+            opcode: Default::default(),
+            caller: ZERO_ADDRESS.into(),
+            price: Default::default(),
+        }
+    }
+}
+
 pub const INVENTORY_STORAGE_KEY: u32 = openbrush::storage_unique_key!(Data);
 
 #[derive(Debug)]
