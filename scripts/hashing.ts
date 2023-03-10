@@ -49,17 +49,17 @@ const main = async () => {
   const initContract = new Constructor(api, newPair);
   const { address: contractAddress } = await initContract.new();
   console.log("Contract Deployed at : ", contractAddress);
-  const contract = new Contract(contractAddress, newPair, api);
+  //const contract = new Contract(contractAddress, newPair, api);
 
-  const detail: Detail = {
-    opcode: 1,
-    inventoryId: 1,
-    caller: pubKeyToAstar(newPair.publicKey),
-    price: new BN(5).mul(pow18)
-  }
+  //const detail: Detail = {
+  //  opcode: 1,
+  //  inventoryId: 1,
+  //  caller: pubKeyToAstar(newPair.publicKey),
+  //  price: new BN(5).mul(pow18)
+  //}
 
-  const run = await contract.query.run(detail, [...signature]);
-  console.log(run);
+  //const run = await contract.query.run(detail, [...signature]);
+  //console.log(run);
   await api.disconnect();
 
 };
