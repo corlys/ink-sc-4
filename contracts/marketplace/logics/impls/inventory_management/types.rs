@@ -5,12 +5,15 @@ use ink::storage::Mapping;
 //openbrush imports
 use openbrush::contracts::traits::ownable::OwnableError;
 use openbrush::contracts::traits::psp34::PSP34Error;
-use openbrush::traits::{ Balance, ZERO_ADDRESS };
+use openbrush::traits::{Balance, ZERO_ADDRESS};
 
 pub type InventoryId = u32;
 
 #[derive(scale::Decode, scale::Encode, Debug, Clone, Eq, PartialEq)]
-#[cfg_attr(feature = "std", derive(scale_info::TypeInfo, ink::storage::traits::StorageLayout))]
+#[cfg_attr(
+    feature = "std",
+    derive(scale_info::TypeInfo, ink::storage::traits::StorageLayout)
+)]
 pub struct Inventory {
     seller: AccountId,
     buyer: AccountId,
@@ -36,7 +39,7 @@ impl Default for Inventory {
 }
 
 #[derive(scale::Decode, scale::Encode, Debug, Clone, Eq, PartialEq)]
-#[cfg_attr(feature = "std", derive(scale_info::TypeInfo, ink::storage::traits::StorageLayout))]
+#[cfg_attr(feature = "std", derive(scale_info::TypeInfo))]
 pub struct Detail {
     inventory_id: u128,
     opcode: u8,
@@ -108,3 +111,4 @@ impl From<OwnableError> for MarketplaceError {
         MarketplaceError::OwnableError(value)
     }
 }
+

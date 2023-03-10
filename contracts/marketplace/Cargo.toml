@@ -14,13 +14,13 @@ scale-info = { version = "2.3", default-features = false, features = ["derive"],
 # Include brush as a dependency and enable default implementation for PSP22 via brush feature
 openbrush = { tag = "3.0.0", git = "https://github.com/727-Ventures/openbrush-contracts", default-features = false, features = ["psp34", "ownable"] }
 
-logics = { path = "src/logics", default-features = false, features = [
+logics = { path = "logics", default-features = false, features = [
     "ink-as-dependency",
 ] }
 
 [lib]
 name = "marketplace"
-path = "src/lib.rs"
+path = "lib.rs"
 crate-type = [
     # Used for normal contract Wasm blobs.
     "cdylib",
