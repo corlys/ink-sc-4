@@ -4,42 +4,30 @@
 #[openbrush::contract]
 pub mod marketplace {
     //imports from ink
-    use ink::storage::Mapping;
+    // use ink::codegen::{ EmitEvent, Env };
+    // use ink::storage::Mapping;
     //imports from openbrush
-
-    #[derive(scale::Decode, scale::Encode)]
-    #[cfg_attr(feature = "std", derive(scale_info::TypeInfo, ink::storage::traits::StorageLayout))]
-    //#[ink::storage_item]
-    pub struct Inventory {
-        seller: AccountId,
-        buyer: AccountId,
-        currency: Option<AccountId>,
-        price: Balance,
-        deadline: u128,
-        kind: u8,
-        status: u8,
-    }
+    use openbrush::traits::Storage;
+    //imports from logic library
+    use logics::impls::inventory_management::types::{ self };
 
     #[ink(storage)]
-    #[derive(Default)]
+    #[derive(Storage, Default)]
     pub struct Marketplace {
-        market_fee: u32,
-
-        inventories: Mapping<u128, Inventory>,
+        #[storage_field]
+        inventory_data: types::Data,
     }
 
     impl Marketplace {
         #[ink(constructor)]
         pub fn new() -> Self {
             let mut _instance = Self::default();
-            _instance.market_fee = 3;
-            _instance.inventories = Mapping::default();
             _instance
         }
 
         #[ink(message)]
         pub fn get_market_fee(&self) -> u32 {
-            self.market_fee
+            89
         }
     }
 }
