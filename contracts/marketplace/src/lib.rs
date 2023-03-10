@@ -7,9 +7,9 @@ pub mod marketplace {
     // use ink::codegen::{ EmitEvent, Env };
     // use ink::storage::Mapping;
     //imports from openbrush
-    use openbrush::{ contracts::ownable::*, traits::Storage };
+    use openbrush::{contracts::ownable::*, traits::Storage};
     //imports from logic library
-    use logics::{ impls::inventory_management::*, traits::inventory_management::* };
+    use logics::{impls::inventory_management::*, traits::inventory_management::*};
 
     #[ink(storage)]
     #[derive(Storage, Default)]
@@ -19,6 +19,8 @@ pub mod marketplace {
         #[storage_field]
         inventory_data: types::Data,
     }
+
+    impl Ownable for Marketplace {}
 
     impl InventoryManagement for Marketplace {}
 
