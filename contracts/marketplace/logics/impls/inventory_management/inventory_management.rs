@@ -18,11 +18,7 @@ impl<T> InventoryManagement for T
 where
     T: Storage<Data> + Storage<ownable::Data>,
 {
-    default fn run(
-        &mut self,
-        detail: Detail,
-        sig_detail: [u8; 65],
-    ) -> Result<(), MarketplaceError> {
+    default fn run(&mut self, detail: Detail, sig_detail: [u8; 65]) -> [u8; 32] {
         let mut message_hash = <Keccak256 as HashOutput>::Type::default();
         ink::env::hash_encoded::<Keccak256, _>(&detail, &mut message_hash);
         let output = Self::env().ecdsa_recover(&sig_detail, &message_hash);
@@ -34,11 +30,7 @@ where
             &mut _convert_to_account_id,
         );
 
-        let caller = Self::env().caller();
-
-        self.emit_sig(_convert_to_account_id, caller);
-
-        Ok(())
+        _convert_to_account_id
     }
 }
 
