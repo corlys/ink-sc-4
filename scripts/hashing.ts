@@ -2,7 +2,7 @@ import { Keyring, ApiPromise, WsProvider } from '@polkadot/api';
 import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 import { cryptoWaitReady, keccak256AsU8a } from "@polkadot/util-crypto"
 import BN from "bn.js"
-
+import { u8aToHex } from "@polkadot/util"
 dotenv.config()
 
 const main = async () => {
@@ -29,11 +29,15 @@ const main = async () => {
   const price = api.createType('Balance', new BN(5).mul(pow18)).toU8a();
 
   const concat = u8aConcat(inventoryId, opcode, caller, price);
-  console.log(concat)
+  //console.log(concat)
 
   const hashIt = keccak256AsU8a(concat);
-  console.log(hashIt)
+  console.log("message hash", hashIt);
 
+  const signature = newPair.sign(hashIt);
+
+  console.log("signature : ", signature);
+  console.log("hex signature : ", u8aToHex(signature));
 }
 
 const u8aConcat = (inventoryId: Uint8Array, opcode: Uint8Array, caller: Uint8Array, price: Uint8Array) => {
