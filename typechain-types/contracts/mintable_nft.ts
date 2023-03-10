@@ -4,12 +4,12 @@ import type { ApiPromise } from '@polkadot/api';
 import { Abi } from '@polkadot/api-contract';
 import type { KeyringPair } from '@polkadot/keyring/types';
 import { ContractPromise } from '@polkadot/api-contract';
-import ABI from '../../../artifacts/marketplace/marketplace.json';
-import QueryMethods from '../query/marketplace';
-import BuildExtrinsicMethods from '../build-extrinsic/marketplace';
-import TxSignAndSendMethods from '../tx-sign-and-send/marketplace';
-import MixedMethods from '../mixed-methods/marketplace';
-import EventsClass from '../events/marketplace';
+import ABI from '../../artifacts/mintable_nft/mintable_nft.json';
+import QueryMethods from '../query/mintable_nft';
+import BuildExtrinsicMethods from '../build-extrinsic/mintable_nft';
+import TxSignAndSendMethods from '../tx-sign-and-send/mintable_nft';
+import MixedMethods from '../mixed-methods/mintable_nft';
+import EventsClass from '../events/mintable_nft';
 
 
 export default class Contract {

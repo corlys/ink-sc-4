@@ -17,7 +17,6 @@
   "dependencies": {
     "@727-ventures/typechain-polkadot": "^0.6.10",
     "@727-ventures/typechain-types": "^0.0.23",
-    "@polkadot/api": "^10.0.1",
     "dotenv": "^16.0.3"
   }
 }
