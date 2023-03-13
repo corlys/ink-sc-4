@@ -1,12 +1,11 @@
 import { Keyring, ApiPromise, WsProvider } from "@polkadot/api";
 import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
-import { cryptoWaitReady, keccak256AsU8a } from "@polkadot/util-crypto";
+import { cryptoWaitReady, keccak256AsU8a, blake2AsU8a } from "@polkadot/util-crypto";
 import BN from "bn.js";
 import { u8aToHex } from "@polkadot/util";
-import Constructor from "../typechain-types/constructors/marketplace";
-import { Detail } from "../typechain-types/types-arguments/marketplace"
-import Contract from "../typechain-types/contracts/marketplace";
-import { pubKeyToAstar } from "./helper"
+import { Detail } from "../../typechain-types/types-arguments/marketplace"
+import Contract from "../../typechain-types/contracts/marketplace";
+import { pubKeyToAstar } from "../helper"
 
 dotenv.config();
 
@@ -14,19 +13,29 @@ const main = async () => {
   try {
     const ready = await cryptoWaitReady();
     if (!ready) return;
-    const keyring = new Keyring();
+
+    const wsProvider = new WsProvider("wss://shibuya-rpc.dwellir.com");
+    const keyring = new Keyring({});
     const PHRASE = process.env.PHRASE || "";
     const newPair = keyring.addFromUri(
       PHRASE,
       { name: "Compromised Account" },
       "ecdsa"
     );
+    const api = await ApiPromise.create({ provider: wsProvider });
 
-    console.log(newPair.address);
+    const anotherPair = keyring.addFromUri(
+      PHRASE,
+      { name: "Compromised Account" },
+      "ecdsa"
+    );
+
+
+    console.log(anotherPair.address, pubKeyToAstar(anotherPair.publicKey), u8aToHex(anotherPair.publicKey).length);
+    console.log(newPair.address, pubKeyToAstar(newPair.publicKey), u8aToHex(newPair.publicKey));
     const pow18 = new BN(10).pow(new BN(18));
 
-    const wsProvider = new WsProvider("wss://rpc.polkadot.io");
-    const api = await ApiPromise.create({ provider: wsProvider });
+
     const inventoryId = api.createType("u128", 1).toU8a();
     const opcode = api.createType("u8", 1).toU8a();
     const caller = api.createType("AccountId", pubKeyToAstar(newPair.publicKey)).toU8a();
@@ -35,24 +44,11 @@ const main = async () => {
     const concat = u8aConcat(inventoryId, opcode, caller, price);
     //console.log(concat)
 
-    const hashIt = keccak256AsU8a(concat);
-    console.log("message hash", hashIt);
+    const hashIt = blake2AsU8a(concat);
 
-    const signature = newPair.sign(hashIt);
+    console.log(u8aToHex(hashIt))
 
-    console.log("signature : ", signature);
-    console.log("hex signature : ", u8aToHex(signature));
-
-    const isValid = newPair.verify(hashIt, signature, newPair.publicKey);
-    console.log("isValid : ", isValid);
-
-    //initiate contract
-    const initContract = new Constructor(api, newPair);
-    const { address: contractAddress, result } = await initContract.new({
-    });
-    console.log(result)
-    console.log("Contract Deployed at : ", contractAddress);
-    const contract = new Contract(contractAddress, newPair, api);
+    const contract = new Contract("bDof33tD7ijESMZJJq5TpxVYdjeghXYawv1WyohrochJieS", newPair, api);
 
     const detail: Detail = {
       opcode: 1,
@@ -61,8 +57,8 @@ const main = async () => {
       price: new BN(5).mul(pow18)
     }
 
-    const run = await contract.query.run(detail, [...signature]);
-    console.log(run);
+    const hash = await contract.query.hash(detail);
+    console.log(hash.value.unwrap());
     await api.disconnect();
   } catch (error) {
     console.log(error);

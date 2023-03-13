@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0x98f1ec09144333004d44dbb2c917d430a5417535371096893426cef1b997f7f2",
+    "hash": "0xdf741aa70d7cfcdf51454c3208e368b1ca7a4718c6e658f377d4e368d9cdc7aa",
     "language": "ink! 4.0.1",
     "compiler": "rustc 1.67.0-nightly",
     "build_info": {
@@ -65,23 +65,6 @@
       {
         "args": [],
         "docs": [
-          " Returns the address of the current owner."
-        ],
-        "label": "Ownable::owner",
-        "mutates": false,
-        "payable": false,
-        "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
-          "type": 9
-        },
-        "selector": "0x4fa43c8c"
-      },
-      {
-        "args": [],
-        "docs": [
           " Leaves the contract without owner. It will not be possible to call",
           " owner's functions anymore. Can only be called by the current owner.",
           "",
@@ -102,7 +85,7 @@
             "ink",
             "MessageResult"
           ],
-          "type": 10
+          "type": 9
         },
         "selector": "0x5e228753"
       },
@@ -139,9 +122,26 @@
             "ink",
             "MessageResult"
           ],
-          "type": 10
+          "type": 9
         },
         "selector": "0x11f43efd"
+      },
+      {
+        "args": [],
+        "docs": [
+          " Returns the address of the current owner."
+        ],
+        "label": "Ownable::owner",
+        "mutates": false,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 12
+        },
+        "selector": "0x4fa43c8c"
       },
       {
         "args": [
@@ -175,9 +175,81 @@
             "ink",
             "MessageResult"
           ],
-          "type": 15
+          "type": 12
         },
         "selector": "0xc54db390"
+      },
+      {
+        "args": [
+          {
+            "label": "detail",
+            "type": {
+              "displayName": [
+                "inventorymanagement_external",
+                "HashInput1"
+              ],
+              "type": 13
+            }
+          }
+        ],
+        "docs": [],
+        "label": "InventoryManagement::hash",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 15
+        },
+        "selector": "0x36317f61"
+      },
+      {
+        "args": [
+          {
+            "label": "detail",
+            "type": {
+              "displayName": [
+                "inventorymanagement_external",
+                "VerifyInput1"
+              ],
+              "type": 13
+            }
+          },
+          {
+            "label": "signer",
+            "type": {
+              "displayName": [
+                "inventorymanagement_external",
+                "VerifyInput2"
+              ],
+              "type": 0
+            }
+          },
+          {
+            "label": "signature",
+            "type": {
+              "displayName": [
+                "inventorymanagement_external",
+                "VerifyInput3"
+              ],
+              "type": 14
+            }
+          }
+        ],
+        "docs": [],
+        "label": "InventoryManagement::verify",
+        "mutates": true,
+        "payable": false,
+        "returnType": {
+          "displayName": [
+            "ink",
+            "MessageResult"
+          ],
+          "type": 16
+        },
+        "selector": "0x81b9a0dc"
       }
     ]
   },
@@ -514,6 +586,116 @@
               {
                 "fields": [
                   {
+                    "type": 10
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 6
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 10
+          },
+          {
+            "name": "E",
+            "type": 6
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 3
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 11
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 3
+          },
+          {
+            "name": "E",
+            "type": 11
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 11,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "index": 0,
+                "name": "CallerIsNotOwner"
+              },
+              {
+                "index": 1,
+                "name": "NewOwnerIsZero"
+              }
+            ]
+          }
+        },
+        "path": [
+          "openbrush_contracts",
+          "traits",
+          "errors",
+          "ownable",
+          "OwnableError"
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
                     "type": 0
                   }
                 ],
@@ -544,116 +726,6 @@
         ],
         "path": [
           "Result"
-        ]
-      }
-    },
-    {
-      "id": 10,
-      "type": {
-        "def": {
-          "variant": {
-            "variants": [
-              {
-                "fields": [
-                  {
-                    "type": 11
-                  }
-                ],
-                "index": 0,
-                "name": "Ok"
-              },
-              {
-                "fields": [
-                  {
-                    "type": 6
-                  }
-                ],
-                "index": 1,
-                "name": "Err"
-              }
-            ]
-          }
-        },
-        "params": [
-          {
-            "name": "T",
-            "type": 11
-          },
-          {
-            "name": "E",
-            "type": 6
-          }
-        ],
-        "path": [
-          "Result"
-        ]
-      }
-    },
-    {
-      "id": 11,
-      "type": {
-        "def": {
-          "variant": {
-            "variants": [
-              {
-                "fields": [
-                  {
-                    "type": 3
-                  }
-                ],
-                "index": 0,
-                "name": "Ok"
-              },
-              {
-                "fields": [
-                  {
-                    "type": 12
-                  }
-                ],
-                "index": 1,
-                "name": "Err"
-              }
-            ]
-          }
-        },
-        "params": [
-          {
-            "name": "T",
-            "type": 3
-          },
-          {
-            "name": "E",
-            "type": 12
-          }
-        ],
-        "path": [
-          "Result"
-        ]
-      }
-    },
-    {
-      "id": 12,
-      "type": {
-        "def": {
-          "variant": {
-            "variants": [
-              {
-                "index": 0,
-                "name": "CallerIsNotOwner"
-              },
-              {
-                "index": 1,
-                "name": "NewOwnerIsZero"
-              }
-            ]
-          }
-        },
-        "path": [
-          "openbrush_contracts",
-          "traits",
-          "errors",
-          "ownable",
-          "OwnableError"
         ]
       }
     },
@@ -746,6 +818,56 @@
         "path": [
           "Result"
         ]
+      }
+    },
+    {
+      "id": 16,
+      "type": {
+        "def": {
+          "variant": {
+            "variants": [
+              {
+                "fields": [
+                  {
+                    "type": 17
+                  }
+                ],
+                "index": 0,
+                "name": "Ok"
+              },
+              {
+                "fields": [
+                  {
+                    "type": 6
+                  }
+                ],
+                "index": 1,
+                "name": "Err"
+              }
+            ]
+          }
+        },
+        "params": [
+          {
+            "name": "T",
+            "type": 17
+          },
+          {
+            "name": "E",
+            "type": 6
+          }
+        ],
+        "path": [
+          "Result"
+        ]
+      }
+    },
+    {
+      "id": 17,
+      "type": {
+        "def": {
+          "primitive": "bool"
+        }
       }
     }
   ],

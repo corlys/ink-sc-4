@@ -40,18 +40,6 @@ export default class Methods {
 	}
 
 	/**
-	* owner
-	*
-	*/
-	"owner" (
-		__options ? : GasLimit,
-	){
-		return txSignAndSend( this.__apiPromise, this.__nativeContract, this.__keyringPair, "ownable::owner", (events: EventRecord) => {
-			return decodeEvents(events, this.__nativeContract, "marketplace");
-		}, [], __options);
-	}
-
-	/**
 	* renounceOwnership
 	*
 	*/
@@ -78,6 +66,18 @@ export default class Methods {
 	}
 
 	/**
+	* owner
+	*
+	*/
+	"owner" (
+		__options ? : GasLimit,
+	){
+		return txSignAndSend( this.__apiPromise, this.__nativeContract, this.__keyringPair, "ownable::owner", (events: EventRecord) => {
+			return decodeEvents(events, this.__nativeContract, "marketplace");
+		}, [], __options);
+	}
+
+	/**
 	* run
 	*
 	* @param { ArgumentTypes.Detail } detail,
@@ -91,6 +91,38 @@ export default class Methods {
 		return txSignAndSend( this.__apiPromise, this.__nativeContract, this.__keyringPair, "inventoryManagement::run", (events: EventRecord) => {
 			return decodeEvents(events, this.__nativeContract, "marketplace");
 		}, [detail, sigDetail], __options);
+	}
+
+	/**
+	* hash
+	*
+	* @param { ArgumentTypes.Detail } detail,
+	*/
+	"hash" (
+		detail: ArgumentTypes.Detail,
+		__options ? : GasLimit,
+	){
+		return txSignAndSend( this.__apiPromise, this.__nativeContract, this.__keyringPair, "inventoryManagement::hash", (events: EventRecord) => {
+			return decodeEvents(events, this.__nativeContract, "marketplace");
+		}, [detail], __options);
+	}
+
+	/**
+	* verify
+	*
+	* @param { ArgumentTypes.Detail } detail,
+	* @param { ArgumentTypes.AccountId } signer,
+	* @param { Array<(number | string | BN)> } signature,
+	*/
+	"verify" (
+		detail: ArgumentTypes.Detail,
+		signer: ArgumentTypes.AccountId,
+		signature: Array<(number | string | BN)>,
+		__options ? : GasLimit,
+	){
+		return txSignAndSend( this.__apiPromise, this.__nativeContract, this.__keyringPair, "inventoryManagement::verify", (events: EventRecord) => {
+			return decodeEvents(events, this.__nativeContract, "marketplace");
+		}, [detail, signer, signature], __options);
 	}
 
 }

@@ -47,17 +47,6 @@ export default class Methods {
 	}
 
 	/**
-	* owner
-	*
-	* @returns { Result<ReturnTypes.AccountId, ReturnTypes.LangError> }
-	*/
-	"owner" (
-		__options: GasLimit,
-	): Promise< QueryReturnType< Result<ReturnTypes.AccountId, ReturnTypes.LangError> > >{
-		return queryOkJSON( this.__apiPromise, this.__nativeContract, this.__callerAddress, "ownable::owner", [], __options, (result) => { return handleReturnType(result, getTypeDescription(9, 'marketplace')); });
-	}
-
-	/**
 	* renounceOwnership
 	*
 	* @returns { void }
@@ -86,6 +75,17 @@ export default class Methods {
 	}
 
 	/**
+	* owner
+	*
+	* @returns { Result<ReturnTypes.AccountId, ReturnTypes.LangError> }
+	*/
+	"owner" (
+		__options: GasLimit,
+	): Promise< QueryReturnType< Result<ReturnTypes.AccountId, ReturnTypes.LangError> > >{
+		return queryOkJSON( this.__apiPromise, this.__nativeContract, this.__callerAddress, "ownable::owner", [], __options, (result) => { return handleReturnType(result, getTypeDescription(12, 'marketplace')); });
+	}
+
+	/**
 	* run
 	*
 	* @param { ArgumentTypes.Detail } detail,
@@ -100,6 +100,40 @@ export default class Methods {
 		return txSignAndSend( this.__apiPromise, this.__nativeContract, this.__keyringPair, "inventoryManagement::run", (events: EventRecord) => {
 			return decodeEvents(events, this.__nativeContract, "marketplace");
 		}, [detail, sigDetail], __options);
+	}
+
+	/**
+	* hash
+	*
+	* @param { ArgumentTypes.Detail } detail,
+	* @returns { void }
+	*/
+	"hash" (
+		detail: ArgumentTypes.Detail,
+		__options: GasLimit,
+	){
+		return txSignAndSend( this.__apiPromise, this.__nativeContract, this.__keyringPair, "inventoryManagement::hash", (events: EventRecord) => {
+			return decodeEvents(events, this.__nativeContract, "marketplace");
+		}, [detail], __options);
+	}
+
+	/**
+	* verify
+	*
+	* @param { ArgumentTypes.Detail } detail,
+	* @param { ArgumentTypes.AccountId } signer,
+	* @param { Array<(number | string | BN)> } signature,
+	* @returns { void }
+	*/
+	"verify" (
+		detail: ArgumentTypes.Detail,
+		signer: ArgumentTypes.AccountId,
+		signature: Array<(number | string | BN)>,
+		__options: GasLimit,
+	){
+		return txSignAndSend( this.__apiPromise, this.__nativeContract, this.__keyringPair, "inventoryManagement::verify", (events: EventRecord) => {
+			return decodeEvents(events, this.__nativeContract, "marketplace");
+		}, [detail, signer, signature], __options);
 	}
 
 }

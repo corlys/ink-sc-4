@@ -40,17 +40,6 @@ export default class Methods {
 	}
 
 	/**
-	* owner
-	*
-	* @returns { Result<ReturnTypes.AccountId, ReturnTypes.LangError> }
-	*/
-	"owner" (
-		__options ? : GasLimit,
-	): Promise< QueryReturnType< Result<ReturnTypes.AccountId, ReturnTypes.LangError> > >{
-		return queryOkJSON( this.__apiPromise, this.__nativeContract, this.__callerAddress, "ownable::owner", [], __options , (result) => { return handleReturnType(result, getTypeDescription(9, 'marketplace')); });
-	}
-
-	/**
 	* renounceOwnership
 	*
 	* @returns { Result<Result<null, ReturnTypes.OwnableError>, ReturnTypes.LangError> }
@@ -58,7 +47,7 @@ export default class Methods {
 	"renounceOwnership" (
 		__options ? : GasLimit,
 	): Promise< QueryReturnType< Result<Result<null, ReturnTypes.OwnableError>, ReturnTypes.LangError> > >{
-		return queryOkJSON( this.__apiPromise, this.__nativeContract, this.__callerAddress, "ownable::renounceOwnership", [], __options , (result) => { return handleReturnType(result, getTypeDescription(10, 'marketplace')); });
+		return queryOkJSON( this.__apiPromise, this.__nativeContract, this.__callerAddress, "ownable::renounceOwnership", [], __options , (result) => { return handleReturnType(result, getTypeDescription(9, 'marketplace')); });
 	}
 
 	/**
@@ -71,7 +60,18 @@ export default class Methods {
 		newOwner: ArgumentTypes.AccountId,
 		__options ? : GasLimit,
 	): Promise< QueryReturnType< Result<Result<null, ReturnTypes.OwnableError>, ReturnTypes.LangError> > >{
-		return queryOkJSON( this.__apiPromise, this.__nativeContract, this.__callerAddress, "ownable::transferOwnership", [newOwner], __options , (result) => { return handleReturnType(result, getTypeDescription(10, 'marketplace')); });
+		return queryOkJSON( this.__apiPromise, this.__nativeContract, this.__callerAddress, "ownable::transferOwnership", [newOwner], __options , (result) => { return handleReturnType(result, getTypeDescription(9, 'marketplace')); });
+	}
+
+	/**
+	* owner
+	*
+	* @returns { Result<ReturnTypes.AccountId, ReturnTypes.LangError> }
+	*/
+	"owner" (
+		__options ? : GasLimit,
+	): Promise< QueryReturnType< Result<ReturnTypes.AccountId, ReturnTypes.LangError> > >{
+		return queryOkJSON( this.__apiPromise, this.__nativeContract, this.__callerAddress, "ownable::owner", [], __options , (result) => { return handleReturnType(result, getTypeDescription(12, 'marketplace')); });
 	}
 
 	/**
@@ -79,14 +79,44 @@ export default class Methods {
 	*
 	* @param { ArgumentTypes.Detail } detail,
 	* @param { Array<(number | string | BN)> } sigDetail,
-	* @returns { Result<Array<number>, ReturnTypes.LangError> }
+	* @returns { Result<ReturnTypes.AccountId, ReturnTypes.LangError> }
 	*/
 	"run" (
 		detail: ArgumentTypes.Detail,
 		sigDetail: Array<(number | string | BN)>,
 		__options ? : GasLimit,
+	): Promise< QueryReturnType< Result<ReturnTypes.AccountId, ReturnTypes.LangError> > >{
+		return queryOkJSON( this.__apiPromise, this.__nativeContract, this.__callerAddress, "inventoryManagement::run", [detail, sigDetail], __options , (result) => { return handleReturnType(result, getTypeDescription(12, 'marketplace')); });
+	}
+
+	/**
+	* hash
+	*
+	* @param { ArgumentTypes.Detail } detail,
+	* @returns { Result<Array<number>, ReturnTypes.LangError> }
+	*/
+	"hash" (
+		detail: ArgumentTypes.Detail,
+		__options ? : GasLimit,
 	): Promise< QueryReturnType< Result<Array<number>, ReturnTypes.LangError> > >{
-		return queryOkJSON( this.__apiPromise, this.__nativeContract, this.__callerAddress, "inventoryManagement::run", [detail, sigDetail], __options , (result) => { return handleReturnType(result, getTypeDescription(15, 'marketplace')); });
+		return queryOkJSON( this.__apiPromise, this.__nativeContract, this.__callerAddress, "inventoryManagement::hash", [detail], __options , (result) => { return handleReturnType(result, getTypeDescription(15, 'marketplace')); });
+	}
+
+	/**
+	* verify
+	*
+	* @param { ArgumentTypes.Detail } detail,
+	* @param { ArgumentTypes.AccountId } signer,
+	* @param { Array<(number | string | BN)> } signature,
+	* @returns { Result<boolean, ReturnTypes.LangError> }
+	*/
+	"verify" (
+		detail: ArgumentTypes.Detail,
+		signer: ArgumentTypes.AccountId,
+		signature: Array<(number | string | BN)>,
+		__options ? : GasLimit,
+	): Promise< QueryReturnType< Result<boolean, ReturnTypes.LangError> > >{
+		return queryOkJSON( this.__apiPromise, this.__nativeContract, this.__callerAddress, "inventoryManagement::verify", [detail, signer, signature], __options , (result) => { return handleReturnType(result, getTypeDescription(16, 'marketplace')); });
 	}
 
 }
